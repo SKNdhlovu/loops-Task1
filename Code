@@ -1,0 +1,80 @@
+class Program
+    {
+        static void Main(string[] args)
+        {
+            List<string> itemList = new List<string>();
+            List<decimal> priceList = new List<decimal>();
+            decimal accumulator = 0;
+            const string HEADING_Accum = "\tTotal:\t\tR";
+            const string EXIT = "ZZZ";
+            const string HEADING = "\tItem\t\tPrice";
+            const string NEW_CONTENT_HEADING = "****************************************";
+            string item;
+            decimal price;
+
+            DisplayInformation();
+            WriteLine();
+            item = PromptItemInformation();
+
+            while (item != EXIT)
+            {
+                itemList.Add(item);
+                price = PromptPriceInformation();
+                priceList.Add(price);
+                accumulator += price;
+                item = RePromptItemInformation();
+                if (item == EXIT)
+                {
+                    break;
+                }
+                else
+                {
+                    itemList.Add(item);
+                }
+            }
+
+            WriteLine(NEW_CONTENT_HEADING);
+            WriteLine("\n" + HEADING);
+            foreach (string i in itemList)
+            {
+                foreach (decimal p in priceList)
+                {
+                    WriteLine("\t" + i + "\t\t" + p);
+                }
+
+            }
+            Write(HEADING_Accum + accumulator);
+
+            ReadLine();
+        }
+        public static void DisplayInformation()
+        {
+            WriteLine("This is an application that prompts the user for food items" +
+                    "\nas well as the price for those food items. The application then" +
+                    "displays the total price for those food items.");
+        }
+        public static string RePromptItemInformation()
+        {
+            WriteLine("Do you wish to continue?");
+            WriteLine("Enter food item purchased or ZZZ to exit.");
+            string inputValue = ReadLine();
+            return inputValue;
+        }
+        public static string PromptItemInformation()
+        {
+            WriteLine("Please enter food item purchased or ZZZ to exit.");
+            string inputValue = ReadLine();
+            return inputValue;
+        }
+        public static decimal PromptPriceInformation()
+        {
+            WriteLine("Please enter the price of the food item purchased.");
+            string inputValue = ReadLine();
+            if ((decimal.TryParse(inputValue, out decimal value)) == false)
+            {
+                WriteLine("You have entered {0}. Please enter an appropriate price", inputValue);
+            }
+            return value;
+        }
+
+    }
